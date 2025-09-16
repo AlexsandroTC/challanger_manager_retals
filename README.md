@@ -1,1 +1,0 @@
-# challanger_manager_retals

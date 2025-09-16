@@ -1,0 +1,6 @@
+@manager_retals.Api_HostAddress = http://localhost:5052
+
+GET {{manager_retals.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
