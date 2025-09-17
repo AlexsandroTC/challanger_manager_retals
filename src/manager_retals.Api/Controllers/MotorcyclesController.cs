@@ -1,12 +1,17 @@
+using manager_retals.Api.DTOs.Motorcycles;
+using manager_retals.Core.Commands.Motorcycle;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
 [Route("motos")]
 public class MotorcyclesController : ControllerBase
 {
-    public MotorcyclesController()
+    private readonly IMediator _mediator;
+
+    public MotorcyclesController(IMediator mediator)
     {
-        
+        _mediator = mediator;
     }
 
     /// <summary>
@@ -18,7 +23,9 @@ public class MotorcyclesController : ControllerBase
     public async Task<IActionResult> RegisterMotorcycle([FromBody] RegisterMotorcycleRequest request)
     {
         // Call motorcycle registration service
-        return CreatedAtAction(nameof(GetById), new { id = 10 }, null);
+        var command = new CreateMotorcycleCommand(request.Identificador, request.Ano, request.Modelo, request.Placa);
+        var motorcycleId = await _mediator.Send(command);
+        return CreatedAtAction(nameof(GetById), new { id = motorcycleId }, null);
     }
 
     /// <summary>
@@ -69,12 +76,4 @@ public class MotorcyclesController : ControllerBase
         // Remove motorcycle if there are no rentals
         return NoContent();
     }
-}
-
-public class UpdateLicensePlateRequest
-{
-}
-
-public class RegisterMotorcycleRequest
-{
 }
