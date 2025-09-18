@@ -7,6 +7,8 @@ namespace manager_retals.Core.Commands.Motorcycle
         public string Identifier { get; set; }
         public int Year { get; set; }
         public string Model { get; set; }
+
+        //TODO Criar um value object para placa
         public string Place { get; set; }
 
         public CreateMotorcycleCommand(string indentificador, int ano, string model, string placa)

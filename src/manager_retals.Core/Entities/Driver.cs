@@ -1,4 +1,4 @@
-﻿namespace manager_retals.Infrastructure.Entities
+﻿namespace manager_retals.Core.Entities
 {
     public class Driver : BaseEntity
     {

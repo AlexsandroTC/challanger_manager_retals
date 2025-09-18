@@ -1,5 +1,6 @@
 using manager_retals.Api.DTOs.Motorcycles;
 using manager_retals.Core.Commands.Motorcycle;
+using manager_retals.Core.Queries.Motorcycle;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,7 +23,6 @@ public class MotorcyclesController : ControllerBase
     [HttpPost()]
     public async Task<IActionResult> RegisterMotorcycle([FromBody] RegisterMotorcycleRequest request)
     {
-        // Call motorcycle registration service
         var command = new CreateMotorcycleCommand(request.Identificador, request.Ano, request.Modelo, request.Placa);
         var motorcycleId = await _mediator.Send(command);
         return CreatedAtAction(nameof(GetById), new { id = motorcycleId }, null);
@@ -34,10 +34,11 @@ public class MotorcyclesController : ControllerBase
     /// <param name="licensePlate"></param>
     /// <returns></returns>
     [HttpGet]
-    public async Task<IActionResult> ListMotorcycles([FromQuery] string licensePlate)
+    public async Task<IActionResult> ListMotorcycles([FromQuery] string? plate)
     {
-        // Call listing service with optional license plate filter
-        return Ok(/*list of motorcycles*/);
+        var query = new GetAllMotorcyclesQuery(plate);
+        var motorcycles = await _mediator.Send(query);
+        return Ok(motorcycles);
     }
 
     /// <summary>
@@ -47,10 +48,11 @@ public class MotorcyclesController : ControllerBase
     /// <param name="request"></param>
     /// <returns></returns>
     [HttpPut("{id}/placa")]
-    public async Task<IActionResult> UpdateLicensePlate(Guid id, [FromBody] UpdateLicensePlateRequest request)
+    public async Task<IActionResult> UpdateLicensePlate(int id, [FromBody] UpdateLicensePlateRequest request)
     {
-        // Update motorcycle license plate
-        return NoContent();
+        var command = new UpdateMotorcycleCommand(id, request.Placa);
+        var motorcycleId = await _mediator.Send(command);
+        return Ok("Placa modificada com sucesso");
     }
 
     /// <summary>
@@ -71,9 +73,10 @@ public class MotorcyclesController : ControllerBase
     /// <param name="id"></param>
     /// <returns></returns>
     [HttpDelete("{id}")]
-    public async Task<IActionResult> RemoveMotorcycle(Guid id)
+    public async Task<IActionResult> RemoveMotorcycle(int id)
     {
-        // Remove motorcycle if there are no rentals
-        return NoContent();
+        var command = new RemoveMotorcycleCommand(id);
+        var motorcycleId = await _mediator.Send(command);
+        return Ok();
     }
 }

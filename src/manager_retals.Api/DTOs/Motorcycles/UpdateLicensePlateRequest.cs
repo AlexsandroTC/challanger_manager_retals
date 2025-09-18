@@ -2,5 +2,6 @@
 {
     public class UpdateLicensePlateRequest
     {
+        public string Placa { get; set; }
     }
 }

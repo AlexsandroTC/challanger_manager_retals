@@ -88,8 +88,7 @@ namespace manager_retals.Infrastructure.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Motorcycle_Identifier",
                 table: "Motorcycle",
-                column: "Identifier",
-                unique: true);
+                column: "Identifier");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Motorcycle_Plate",

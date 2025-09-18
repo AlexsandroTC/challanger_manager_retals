@@ -1,4 +1,4 @@
-﻿namespace manager_retals.Infrastructure.Entities
+﻿namespace manager_retals.Core.Entities
 {
     public class Motorcycle : BaseEntity
     {
@@ -8,5 +8,13 @@
         public string Plate { get; set; }
 
         public ICollection<Rental> Rentals { get; set; } = new List<Rental>();
+
+        public Motorcycle(string identifier, string model, int year, string plate)
+        {
+            Identifier = identifier;
+            Model = model;
+            Year = year;
+            Plate = plate;
+        }
     }
 }

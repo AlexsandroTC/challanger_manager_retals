@@ -1,4 +1,4 @@
-﻿using manager_retals.Infrastructure.Entities;
+﻿using manager_retals.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace manager_retals.Infrastructure
@@ -54,8 +54,7 @@ namespace manager_retals.Infrastructure
                         .HasKey(m => m.Id);
 
             modelBuilder.Entity<Motorcycle>()
-                        .HasIndex(m => m.Identifier)
-                        .IsUnique();
+                        .HasIndex(m => m.Identifier);
 
             modelBuilder.Entity<Motorcycle>()
                         .HasIndex(m => m.Plate)

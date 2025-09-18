@@ -1,6 +1,8 @@
 using manager_retals.Api.Middleware;
 using manager_retals.Core;
+using manager_retals.Core.Repositories;
 using manager_retals.Infrastructure;
+using manager_retals.Infrastructure.Repositories;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,6 +19,12 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 );
 
 builder.Services.AddMediatR(typeof(Configuration));
+
+// Add repositories:
+builder.Services.AddScoped<IMotorcycleRepository, MotorcycleRepository>();
+builder.Services.AddScoped<IDriverRepository, DriverRepository>();
+builder.Services.AddScoped<IRentalRepository, RentalRepository>();
+
 
 var app = builder.Build();
 

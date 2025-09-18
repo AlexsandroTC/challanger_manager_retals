@@ -12,7 +12,7 @@ using manager_retals.Infrastructure;
 namespace manager_retals.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250918000507_InitialCreate")]
+    [Migration("20250918112505_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -25,7 +25,7 @@ namespace manager_retals.Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("manager_retals.Infrastructure.Entities.Driver", b =>
+            modelBuilder.Entity("manager_retals.Core.Entities.Driver", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -58,7 +58,7 @@ namespace manager_retals.Infrastructure.Migrations
                     b.ToTable("Driver");
                 });
 
-            modelBuilder.Entity("manager_retals.Infrastructure.Entities.Motorcycle", b =>
+            modelBuilder.Entity("manager_retals.Core.Entities.Motorcycle", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -89,8 +89,7 @@ namespace manager_retals.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Identifier")
-                        .IsUnique();
+                    b.HasIndex("Identifier");
 
                     b.HasIndex("Plate")
                         .IsUnique();
@@ -98,7 +97,7 @@ namespace manager_retals.Infrastructure.Migrations
                     b.ToTable("Motorcycle");
                 });
 
-            modelBuilder.Entity("manager_retals.Infrastructure.Entities.Rental", b =>
+            modelBuilder.Entity("manager_retals.Core.Entities.Rental", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -140,15 +139,15 @@ namespace manager_retals.Infrastructure.Migrations
                     b.ToTable("Rental");
                 });
 
-            modelBuilder.Entity("manager_retals.Infrastructure.Entities.Rental", b =>
+            modelBuilder.Entity("manager_retals.Core.Entities.Rental", b =>
                 {
-                    b.HasOne("manager_retals.Infrastructure.Entities.Driver", "Driver")
+                    b.HasOne("manager_retals.Core.Entities.Driver", "Driver")
                         .WithMany("Rentals")
                         .HasForeignKey("DriverId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("manager_retals.Infrastructure.Entities.Motorcycle", "Motorcycle")
+                    b.HasOne("manager_retals.Core.Entities.Motorcycle", "Motorcycle")
                         .WithMany("Rentals")
                         .HasForeignKey("MotorcycleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -159,12 +158,12 @@ namespace manager_retals.Infrastructure.Migrations
                     b.Navigation("Motorcycle");
                 });
 
-            modelBuilder.Entity("manager_retals.Infrastructure.Entities.Driver", b =>
+            modelBuilder.Entity("manager_retals.Core.Entities.Driver", b =>
                 {
                     b.Navigation("Rentals");
                 });
 
-            modelBuilder.Entity("manager_retals.Infrastructure.Entities.Motorcycle", b =>
+            modelBuilder.Entity("manager_retals.Core.Entities.Motorcycle", b =>
                 {
                     b.Navigation("Rentals");
                 });

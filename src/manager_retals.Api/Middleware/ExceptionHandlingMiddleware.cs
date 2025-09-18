@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using manager_retals.Core.Exceptions;
+using System.ComponentModel.DataAnnotations;
 using System.Net;
 using System.Text.Json;
 
@@ -31,7 +32,8 @@ namespace manager_retals.Api.Middleware
             {
                 ArgumentNullException => (HttpStatusCode.BadRequest, "Dados inválidos"),
                 AccessViolationException => (HttpStatusCode.BadRequest, exception.Message),
-                //BusinessRuleException => HttpStatusCode.BadRequest,
+                BusinessException => (HttpStatusCode.BadRequest, exception.Message),
+                NotFoundException => (HttpStatusCode.NotFound, exception.Message),
                 _ => (HttpStatusCode.InternalServerError, "")
             };
 
