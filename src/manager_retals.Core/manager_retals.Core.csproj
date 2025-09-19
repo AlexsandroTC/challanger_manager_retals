@@ -11,4 +11,8 @@
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\manager_retals.Infrastructure.RabbitMQ\manager_retals.Infrastructure.RabbitMQ.csproj" />
+  </ItemGroup>
+
 </Project>

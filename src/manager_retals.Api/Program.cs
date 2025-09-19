@@ -2,6 +2,7 @@ using manager_retals.Api.Middleware;
 using manager_retals.Core;
 using manager_retals.Core.Repositories;
 using manager_retals.Infrastructure;
+using manager_retals.Infrastructure.RabbitMQ;
 using manager_retals.Infrastructure.Repositories;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -30,6 +31,13 @@ builder.Services.AddScoped<IMotorcycleRepository, MotorcycleRepository>();
 builder.Services.AddScoped<IDriverRepository, DriverRepository>();
 builder.Services.AddScoped<IRentalRepository, RentalRepository>();
 
+builder.Services.AddSingleton(sp =>
+    new RabbitMqPublisher(
+        hostName: builder.Configuration["RabbitMq:HostName"] ?? "localhost",
+        userName: builder.Configuration["RabbitMq:UserName"] ?? "guest",
+        password: builder.Configuration["RabbitMq:Password"] ?? "guest"
+    )
+);
 
 var app = builder.Build();
 
