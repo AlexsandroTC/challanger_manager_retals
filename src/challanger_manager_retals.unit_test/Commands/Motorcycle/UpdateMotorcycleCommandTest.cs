@@ -19,7 +19,7 @@ namespace manager_retals.Unit_test.Commands.Motorcycle
         private readonly string _plateCase = "ABC-1234";
 
         [Fact]
-        public void Constructor_ShouldSetProperties_WhenValidArguments()
+        public void WhenUpdateMotorcycle_ShouldSetProperties_WhenValidArguments()
         {
             var command = new UpdateMotorcycleCommand(_id, _plateCase);
             command.Id.Should().Be(_id);

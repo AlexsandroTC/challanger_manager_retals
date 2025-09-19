@@ -1,7 +1,12 @@
 ﻿namespace manager_retals.Core.Exceptions
 {
-    public class DriverDocumentRegisteredException : BusinessException
+    public class CreateDriverDriveLicenseRegisteredException : BusinessException
     {
-        public DriverDocumentRegisteredException(string place) : base($"A placa {place} já esta cadastrada no sistema.") { }
+        public CreateDriverDriveLicenseRegisteredException(string message) : base($"A CNH já cadastrada no sistema") { }
+    }
+
+    public class CreateDriverCompanyNumberRegisteredException : BusinessException
+    {
+        public CreateDriverCompanyNumberRegisteredException(string message) : base($"O CNPJ já cadastrada no sistema") { }
     }
 }

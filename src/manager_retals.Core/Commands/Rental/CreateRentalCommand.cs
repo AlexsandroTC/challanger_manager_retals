@@ -16,7 +16,7 @@ namespace manager_retals.Core.Commands.Rental
         {
             if (motorcycleId <= 0) throw new ArgumentNullException(nameof(motorcycleId));
             if (driverId <= 0) throw new ArgumentNullException(nameof(driverId));
-            if (plan == null) throw new ArgumentNullException(nameof(plan));
+            if (plan == 0) throw new ArgumentNullException(nameof(plan));
             if (DateTime.MinValue == startDate) throw new ArgumentNullException(nameof(startDate));
             if (DateTime.MinValue == endDate) throw new ArgumentNullException(nameof(endDate));
             if (DateTime.MinValue == expectedEndDate) throw new ArgumentNullException(nameof(expectedEndDate));

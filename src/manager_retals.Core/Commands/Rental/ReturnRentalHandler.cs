@@ -2,7 +2,6 @@
 using manager_retals.Core.Repositories;
 using manager_retals.Core.Services;
 using MediatR;
-using Microsoft.VisualBasic;
 
 namespace manager_retals.Core.Commands.Rental
 {

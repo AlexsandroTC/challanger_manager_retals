@@ -23,11 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Commands\Driver\" />
-    <Folder Include="Commands\Rental\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\manager_retals.Core\manager_retals.Core.csproj" />
   </ItemGroup>
 

@@ -16,11 +16,11 @@ namespace manager_retals.Core.Commands.Driver
         {
             var driverWithCnpj = await _driverRepository.FindAsync(d => d.CompanyNumber == request.CompanyNumber);
             if (driverWithCnpj.Any())
-                throw new DriverDocumentRegisteredException("CNPJ ja cadastrado.");
+                throw new CreateDriverCompanyNumberRegisteredException("CNPJ ja cadastrado.");
 
             var driverWithCnh = await _driverRepository.FindAsync(d => d.DriverLicenseNumber == request.DriverLicenseNumber);
             if (driverWithCnh.Any())
-                throw new DriverDocumentRegisteredException("CNH ja cadastrado.");
+                throw new CreateDriverDriveLicenseRegisteredException("CNH ja cadastrado.");
 
             var driver = new Entities.Driver(
                 request.Identifier,
