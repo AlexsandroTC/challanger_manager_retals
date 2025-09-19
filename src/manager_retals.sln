@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "manager_retals.Core", "mana
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "manager_retals.Infrastructure.RabbitMQ", "manager_retals.Infrastructure.RabbitMQ\manager_retals.Infrastructure.RabbitMQ.csproj", "{D16BE65D-2CFC-4F0F-8B6D-CA07359DDA21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "manager_retals.Unit_test", "challanger_manager_retals.unit_test\manager_retals.Unit_test.csproj", "{C207B1B5-8B87-44DF-A221-930FD1CEB219}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "manager_retals.Unit_test", "manager_retals.unit_test\manager_retals.Unit_test.csproj", "{C207B1B5-8B87-44DF-A221-930FD1CEB219}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
