@@ -9,9 +9,9 @@ namespace manager_retals.Infrastructure.Repositories
     {
         public DriverRepository(AppDbContext context) : base(context) { }
 
-        public async Task<Driver?> GetByDocumentAsync(string document)
+        public async Task<Driver?> GetByDocumentAsync(string driverLicenseNumber)
         {
-            return await _dbSet.FirstOrDefaultAsync(m => m.Document == document);
+            return await _dbSet.FirstOrDefaultAsync(m => m.DriverLicenseNumber == driverLicenseNumber);
         }
     }
 }

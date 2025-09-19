@@ -30,10 +30,28 @@ namespace manager_retals.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime>("BirthDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("CompanyNumber")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("Document")
+                    b.Property<string>("DriverLicenseImagePath")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("DriverLicenseNumber")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("DriverLicenseType")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Identifier")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -41,18 +59,29 @@ namespace manager_retals.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Phone")
-                        .HasColumnType("text");
-
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Document")
+                    b.HasIndex("BirthDate");
+
+                    b.HasIndex("CompanyNumber")
                         .IsUnique();
 
-                    b.ToTable("Driver");
+                    b.HasIndex("DriverLicenseImagePath");
+
+                    b.HasIndex("DriverLicenseNumber")
+                        .IsUnique();
+
+                    b.HasIndex("DriverLicenseType");
+
+                    b.HasIndex("Identifier")
+                        .IsUnique();
+
+                    b.HasIndex("Name");
+
+                    b.ToTable("Drivers");
                 });
 
             modelBuilder.Entity("manager_retals.Core.Entities.Motorcycle", b =>
@@ -86,12 +115,13 @@ namespace manager_retals.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Identifier");
+                    b.HasIndex("Identifier")
+                        .IsUnique();
 
                     b.HasIndex("Plate")
                         .IsUnique();
 
-                    b.ToTable("Motorcycle");
+                    b.ToTable("Motorcycles");
                 });
 
             modelBuilder.Entity("manager_retals.Core.Entities.Rental", b =>
@@ -108,18 +138,20 @@ namespace manager_retals.Infrastructure.Migrations
                     b.Property<int>("DriverId")
                         .HasColumnType("integer");
 
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<int>("MotorcycleId")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime?>("RentalEnd")
+                    b.Property<int>("Plan")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("StartDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<DateTime>("RentalStart")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
 
                     b.Property<decimal?>("TotalPrice")
                         .HasColumnType("numeric");
@@ -133,7 +165,7 @@ namespace manager_retals.Infrastructure.Migrations
 
                     b.HasIndex("MotorcycleId");
 
-                    b.ToTable("Rental");
+                    b.ToTable("Rentals");
                 });
 
             modelBuilder.Entity("manager_retals.Core.Entities.Rental", b =>

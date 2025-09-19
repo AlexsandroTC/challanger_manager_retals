@@ -1,18 +1,22 @@
-﻿namespace manager_retals.Core.Entities
+﻿using manager_retals.Core.Enums;
+
+namespace manager_retals.Core.Entities
 {
     public class Rental : BaseEntity
     {
         public int MotorcycleId { get; set; }
-        public Motorcycle Motorcycle { get; set; } = null!;
+        public Motorcycle Motorcycle { get; set; }
 
         public int DriverId { get; set; }
-        public Driver Driver { get; set; } = null!;
+        public Driver Driver { get; set; }
 
-        public DateTime RentalStart { get; set; }
-        public DateTime? RentalEnd { get; set; }
-        public decimal? TotalPrice { get; set; }
+        public RentalPlan Plan { get; set; }
 
-        public string Status { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
 
+        public decimal TotalPrice { get; set; }
+
+        public RentalStatus Status { get; set; }
     }
 }

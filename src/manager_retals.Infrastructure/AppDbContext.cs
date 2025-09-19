@@ -1,5 +1,6 @@
 ﻿using manager_retals.Core.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace manager_retals.Infrastructure
 {
@@ -7,16 +8,16 @@ namespace manager_retals.Infrastructure
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-        public DbSet<Motorcycle> Motorcycles;
-        public DbSet<Driver> Drivers;
-        public DbSet<Rental> Rentals;
+        public DbSet<Motorcycle> Motorcycles { get; set; }
+        public DbSet<Driver> Drivers { get; set; }
+        public DbSet<Rental> Rentals { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
             ApplyMotorcycleMapping(modelBuilder);
-            ApplyDriveMapping(modelBuilder);
+            ApplyDriverMapping(modelBuilder);
             ApplyRentalMapping(modelBuilder);
         }
 
@@ -38,14 +39,34 @@ namespace manager_retals.Infrastructure
                         .OnDelete(DeleteBehavior.Cascade);
         }
 
-        private static void ApplyDriveMapping(ModelBuilder modelBuilder)
+        private static void ApplyDriverMapping(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Driver>()
                         .HasKey(d => d.Id);
 
             modelBuilder.Entity<Driver>()
-                        .HasIndex(d => d.Document)
+                        .HasIndex(d => d.Identifier)
                         .IsUnique();
+
+            modelBuilder.Entity<Driver>()
+                        .HasIndex(d => d.Name);
+
+            modelBuilder.Entity<Driver>()
+                        .HasIndex(d => d.CompanyNumber)
+                        .IsUnique();
+
+            modelBuilder.Entity<Driver>()
+                        .HasIndex(d => d.BirthDate);
+
+            modelBuilder.Entity<Driver>()
+                        .HasIndex(d => d.DriverLicenseNumber)
+                        .IsUnique();
+
+            modelBuilder.Entity<Driver>()
+                        .HasIndex(d => d.DriverLicenseType);
+
+            modelBuilder.Entity<Driver>()
+                        .HasIndex(d => d.DriverLicenseImagePath);
         }
 
         private static void ApplyMotorcycleMapping(ModelBuilder modelBuilder)
@@ -54,7 +75,8 @@ namespace manager_retals.Infrastructure
                         .HasKey(m => m.Id);
 
             modelBuilder.Entity<Motorcycle>()
-                        .HasIndex(m => m.Identifier);
+                        .HasIndex(m => m.Identifier)
+                        .IsUnique();
 
             modelBuilder.Entity<Motorcycle>()
                         .HasIndex(m => m.Plate)
