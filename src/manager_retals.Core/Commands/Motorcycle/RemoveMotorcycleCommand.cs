@@ -9,7 +9,7 @@ namespace manager_retals.Core.Commands.Motorcycle
 
         public RemoveMotorcycleCommand(int id)
         {
-            if (id < 0) throw new ArgumentNullException(nameof(id));
+            if (id <= 0) throw new ArgumentNullException(nameof(id));
 
             Id = id;
         }

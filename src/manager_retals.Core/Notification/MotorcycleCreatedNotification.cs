@@ -2,7 +2,7 @@
 
 namespace manager_retals.Core.Notification
 {
-    internal class MotorcycleCreatedNotification : INotification
+    public class MotorcycleCreatedNotification : INotification
     {
         public int MotorcycleId { get; set; }
         public string Identifier { get; set; }

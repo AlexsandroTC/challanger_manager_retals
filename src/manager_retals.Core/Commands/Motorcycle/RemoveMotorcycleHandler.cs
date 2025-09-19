@@ -4,7 +4,7 @@ using MediatR;
 
 namespace manager_retals.Core.Commands.Motorcycle
 {
-    internal class RemoveMotorcycleHandler : IRequestHandler<RemoveMotorcycleCommand, int>
+    public class RemoveMotorcycleHandler : IRequestHandler<RemoveMotorcycleCommand, int>
     {
         private readonly IMotorcycleRepository _motorcycleRepository;
 
@@ -20,7 +20,7 @@ namespace manager_retals.Core.Commands.Motorcycle
                 throw new NotFoundException("Placa não encontrada na base de dados.");
 
             if (motorcycle.Rentals.Any())
-                throw new DeleteMotorcyclePlateWithRentalsException("Não é possivel remover uma moto com registro de locação.");
+                throw new RemoveMotorcycleWithRentalsException("Não é possivel remover uma moto com registro de locação.");
 
             Console.WriteLine($"Deletando moto: {motorcycle.Model}, placa: {motorcycle.Plate}");
 

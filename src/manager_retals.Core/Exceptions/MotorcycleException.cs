@@ -10,8 +10,8 @@
         }
     }
 
-    public class DeleteMotorcyclePlateWithRentalsException : BusinessException
+    public class RemoveMotorcycleWithRentalsException : BusinessException
     {
-        public DeleteMotorcyclePlateWithRentalsException(string message) : base(message) { }
+        public RemoveMotorcycleWithRentalsException(string message) : base(message) { }
     }
 }

@@ -11,17 +11,17 @@ namespace manager_retals.Core.Commands.Motorcycle
         //TODO Criar um value object para placa
         public string Place { get; set; }
 
-        public CreateMotorcycleCommand(string indentificador, int ano, string model, string placa)
+        public CreateMotorcycleCommand(string identifier, int year, string model, string plate)
         {
-            if (string.IsNullOrWhiteSpace(indentificador)) throw new ArgumentNullException(nameof(indentificador));
-            if (ano <= 0) throw new ArgumentNullException(nameof(ano));
+            if (string.IsNullOrWhiteSpace(identifier)) throw new ArgumentNullException(nameof(identifier));
+            if (year <= 0) throw new ArgumentNullException(nameof(year));
             if (string.IsNullOrWhiteSpace(model)) throw new ArgumentNullException(nameof(model));
-            if (string.IsNullOrWhiteSpace(placa)) throw new ArgumentNullException(nameof(placa));
+            if (string.IsNullOrWhiteSpace(plate)) throw new ArgumentNullException(nameof(plate));
 
-            Identifier = indentificador;
-            Year = ano;
+            Identifier = identifier;
+            Year = year;
             Model = model;
-            Place = placa;
+            Place = plate;
         }
     }
 }
