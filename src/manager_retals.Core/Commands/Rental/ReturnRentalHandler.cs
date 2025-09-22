@@ -20,7 +20,7 @@ namespace manager_retals.Core.Commands.Rental
             if (rental == null)
                 throw new RentalDriverIsNotFoundException();
 
-            decimal finalPrice = RentalPlanCalculationServices.CalculateFinalPrice(rental.EndDate, request.ReturnDate, rental.Plan, rental.TotalPrice);
+            decimal finalPrice = ReturnRentalCalculationService.CalculateFinalPrice(rental.EndDate, request.ReturnDate, rental.Plan, rental.TotalPrice);
 
             rental.EndDate = request.ReturnDate;
             rental.TotalPrice = finalPrice;

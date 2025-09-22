@@ -1,6 +1,8 @@
 using manager_retals.Api.Middleware;
 using manager_retals.Core;
 using manager_retals.Core.Repositories;
+using manager_retals.Core.Services;
+using manager_retals.Core.Strategies.RentalPlanCalculator;
 using manager_retals.Infrastructure;
 using manager_retals.Infrastructure.RabbitMQ;
 using manager_retals.Infrastructure.Repositories;
@@ -30,6 +32,15 @@ builder.Services.AddMediatR(typeof(Configuration));
 builder.Services.AddScoped<IMotorcycleRepository, MotorcycleRepository>();
 builder.Services.AddScoped<IDriverRepository, DriverRepository>();
 builder.Services.AddScoped<IRentalRepository, RentalRepository>();
+
+//Add stretegies:
+builder.Services.AddScoped<IRentalPlanStrategy, SevenDaysRentalStrategy>();
+builder.Services.AddScoped<IRentalPlanStrategy, FifteenDaysRentalStrategy>();
+builder.Services.AddScoped<IRentalPlanStrategy, ThirtyDaysRentalStrategy>();
+builder.Services.AddScoped<IRentalPlanStrategy, FortyFiveDaysRentalStrategy>();
+builder.Services.AddScoped<IRentalPlanStrategy, FiftyDaysRentalStrategy>();
+
+builder.Services.AddScoped<RentalPlanCalculationServices>();
 
 builder.Services.AddSingleton(sp =>
     new RabbitMqPublisher(

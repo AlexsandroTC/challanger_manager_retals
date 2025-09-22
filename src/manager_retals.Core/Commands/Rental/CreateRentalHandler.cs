@@ -12,14 +12,17 @@ namespace manager_retals.Core.Commands.Rental
         private readonly IRentalRepository _rentalRepository;
         private readonly IMotorcycleRepository _motorcycleRepository;
         private readonly IDriverRepository _driverRepository;
+        private readonly RentalPlanCalculationServices _rentalPlanCalculationServices;
 
         public CreateRentalHandler(IRentalRepository rentalRepository,
                                    IMotorcycleRepository motorcycleRepository,
-                                   IDriverRepository driverRepository)
+                                   IDriverRepository driverRepository,
+                                   RentalPlanCalculationServices rentalPlanCalculationServices)
         {
             _rentalRepository = rentalRepository;
             _motorcycleRepository = motorcycleRepository;
             _driverRepository = driverRepository;
+            _rentalPlanCalculationServices = rentalPlanCalculationServices;
         }
 
         public async Task<int> Handle(CreateRentalCommand request, CancellationToken cancellationToken)
@@ -35,7 +38,8 @@ namespace manager_retals.Core.Commands.Rental
             if (motorcycle == null)
                 throw new RentalMotorcyleIsNotFoundException();
 
-            var totalPrice = RentalPlanCalculationServices.GetTotalPrice(request.Plan);
+            var rentalPlanCalculationServices = _rentalPlanCalculationServices.GetStrategy(request.Plan);
+            var totalPrice = rentalPlanCalculationServices.GetTotalPrice();
 
             var rental = new Entities.Rental
             {
@@ -44,7 +48,7 @@ namespace manager_retals.Core.Commands.Rental
                 Plan = request.Plan,
                 TotalPrice = totalPrice,
                 StartDate = DateTime.UtcNow.AddDays(1),
-                EndDate = DateTime.UtcNow.AddDays(1 + RentalPlanCalculationServices.GetDays(request.Plan)),
+                EndDate = DateTime.UtcNow.AddDays(1 + rentalPlanCalculationServices.GetDays()),
                 Status = RentalStatus.Open
             };
 

@@ -3,6 +3,8 @@ using manager_retals.Core.Commands.Rental;
 using manager_retals.Core.Enums;
 using manager_retals.Core.Exceptions;
 using manager_retals.Core.Repositories;
+using manager_retals.Core.Services;
+using manager_retals.Core.Strategies.RentalPlanCalculator;
 using Moq;
 
 namespace manager_retals.Unit_test.Commands.Rental
@@ -12,6 +14,10 @@ namespace manager_retals.Unit_test.Commands.Rental
         private readonly Mock<IRentalRepository> _rentalRepositoryMock;
         private readonly Mock<IMotorcycleRepository> _motorcycleRepositoryMock;
         private readonly Mock<IDriverRepository> _driverRepositoryMock;
+
+        private readonly Mock<IRentalPlanStrategy> _sevenDaysStrategyMock;
+        private readonly RentalPlanCalculationServices _rentalPlanService;
+
         private readonly CreateRentalHandler _handler;
 
         public readonly Core.Entities.Driver _driverStub = new Core.Entities.Driver("id", "name", "12345678901", DateTime.UtcNow.AddYears(-20), "9999999", DriverLicenseType.A, "img.png");
@@ -22,7 +28,16 @@ namespace manager_retals.Unit_test.Commands.Rental
             _rentalRepositoryMock = new Mock<IRentalRepository>();
             _motorcycleRepositoryMock = new Mock<IMotorcycleRepository>();
             _driverRepositoryMock = new Mock<IDriverRepository>();
-            _handler = new CreateRentalHandler(_rentalRepositoryMock.Object, _motorcycleRepositoryMock.Object, _driverRepositoryMock.Object);
+
+            _sevenDaysStrategyMock = new Mock<IRentalPlanStrategy>();
+            _sevenDaysStrategyMock.Setup(s => s.Plan).Returns(RentalPlan.SevenDays);
+            _sevenDaysStrategyMock.Setup(s => s.GetTotalPrice()).Returns(210m);
+
+            _rentalPlanService = new RentalPlanCalculationServices(
+                new[] { _sevenDaysStrategyMock.Object }
+            );
+            
+            _handler = new CreateRentalHandler(_rentalRepositoryMock.Object, _motorcycleRepositoryMock.Object, _driverRepositoryMock.Object, _rentalPlanService);
         }
 
 
